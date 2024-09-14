@@ -18,43 +18,43 @@ BOOK_DICT = {
         "ma1" : {
             Book("mystery", "ma1", "ma1b1"),
             Book("mystery", "ma1", "ma1b2"),
-            Book("mystery", "ma1", "ma1b2")},
+            Book("mystery", "ma1", "ma1b3")},
         "ma2" : {
             Book("mystery", "ma2", "ma2b1"),
             Book("mystery", "ma2", "ma2b2"),
-            Book("mystery", "ma2", "ma2b2")},
+            Book("mystery", "ma2", "ma2b3")},
         "ma3" : {
             Book("mystery", "ma3", "ma3b1"),
             Book("mystery", "ma3", "ma3b2"),
-            Book("mystery", "ma3", "ma3b2")},
+            Book("mystery", "ma3", "ma3b3")},
     },
     "sci fi" : {
         "sa1" : {
             Book("sci fi", "sa1", "sa1b1"),
             Book("sci fi", "sa1", "sa1b2"),
-            Book("sci fi", "sa1", "sa1b2")},
+            Book("sci fi", "sa1", "sa1b3")},
         "sa2" : {
             Book("sci fi", "sa2", "sa2b1"),
             Book("sci fi", "sa2", "sa2b2"),
-            Book("sci fi", "sa2", "sa2b2")},
+            Book("sci fi", "sa2", "sa2b3")},
         "sa3" : {
             Book("sci fi", "sa3", "sa3b1"),
             Book("sci fi", "sa3", "sa3b2"),
-            Book("sci fi", "sa3", "sa3b2")},
+            Book("sci fi", "sa3", "sa3b3")},
     },
     "romance" : {
         "ra1" : {
             Book("romance", "ra1", "ra1b1"),
             Book("romance", "ra1", "ra1b2"),
-            Book("romance", "ra1", "ra1b2")},
+            Book("romance", "ra1", "ra1b3")},
         "ra2" : {
             Book("romance", "ra2", "ra2b1"),
             Book("romance", "ra2", "ra2b2"),
-            Book("romance", "ra2", "ra2b2")},
+            Book("romance", "ra2", "ra2b3")},
         "ra3" : {
             Book("romance", "ra3", "ra3b1"),
             Book("romance", "ra3", "ra3b2"),
-            Book("romance", "ra3", "ra3b2")},
+            Book("romance", "ra3", "ra3b3")},
     }
 }
 
@@ -66,10 +66,10 @@ GENRE_TRANSITION_MATRIX = {
 
 class BookRecomender:
     def __init__(self):
-        genres = list(GENRE_TRANSITION_MATRIX.keys())
-        genre = input("Enter your favorite genre (options: "+str(genres)+"): ").lower()
-        while genre not in genres:
-            genre = input("Enter youre favorite genre (options: "+str(genres)+"): ").lower()
+        self.genres = list(GENRE_TRANSITION_MATRIX.keys())
+        genre = input("Enter your favorite genre (options: "+str(self.genres)+"): ").lower()
+        while genre not in self.genres:
+            genre = input("Enter youre favorite genre (options: "+str(self.genres)+"): ").lower()
         
         authors = list(BOOK_DICT[genre].keys())
         author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ").lower()
@@ -84,8 +84,8 @@ class BookRecomender:
         while title not in titles:
             title = input("Enter your favorite "+author+" book options: "+str(titles)+"): ").lower()
         
-        self.num_recs = input("How many recommendations would you like? (options: 1-20): ")
-        while not (self.num_recs.isdigit() and int(self.num_recs) > 0 and int(self.num_recs) <= 20):
+        self.num_recs = input("How many recommendations would you like? (options: 1-26): ")
+        while not (self.num_recs.isdigit() and int(self.num_recs) > 0 and int(self.num_recs) <= 26):
             self.num_recs = input("How many recommendations would you like? (options: 1-20): ")
         self.num_recs = int(self.num_recs)
 
@@ -94,14 +94,12 @@ class BookRecomender:
     
     def generate_recs(self):
         
-        book_recs = [self.start_book.title] # to ensure start is not recommended
+        book_recs = {self.start_book.title} # to ensure start is not recommended
         current_book = self.start_book
 
-        for i in range(self.num_recs):
+        while len(book_recs) < self.num_recs + 1:
             next_book = self.get_next_book(current_book)
-            while (next_book.title in book_recs):
-                next_book = self.get_next_book(current_book)
-            book_recs.append(next_book.title)
+            book_recs.add(next_book.title)
             current_book = next_book
         
         book_recs.remove(self.start_book.title)
@@ -109,7 +107,35 @@ class BookRecomender:
         print(book_recs)
     
     def get_next_book(self, current_book):
-        return Book("genre", "author", str(random.random()))
+
+        next_genre = random.choices(self.genres, GENRE_TRANSITION_MATRIX[current_book.genre].values())[0]
+
+        author_mtx = dict()
+        title_mtx = dict()
+        
+        if next_genre == current_book.genre:
+            for author in list(BOOK_DICT[next_genre].keys()):
+                author_mtx[author] = .5/(len(list(BOOK_DICT[next_genre]))-1)
+            author_mtx[current_book.author] = .5
+        else:
+            for author in list(BOOK_DICT[next_genre].keys()):
+                author_mtx[author] = 1/(len(list(BOOK_DICT[next_genre])))
+        print("author mtx", author_mtx)
+            
+        next_author = random.choices(list(author_mtx.keys()), list(author_mtx.values()))[0]
+        
+        if next_author == current_book.author:
+            for book in BOOK_DICT[next_genre][next_author]:
+                title_mtx[book.title] = 1/(len(list(BOOK_DICT[next_genre][next_author]))-1)
+            title_mtx[current_book.title] = 0
+        else:
+            for book in BOOK_DICT[next_genre][next_author]:
+                title_mtx[book] = 1/(len(list(BOOK_DICT[next_genre][next_author])))
+        print("title mtx", title_mtx)
+
+        next_title = random.choices(list(title_mtx.keys()), list(title_mtx.values()))[0]
+        
+        return Book(next_genre, next_author, next_title)
 
 
 def main():
