@@ -1,6 +1,9 @@
 """ Don't forget documentation! """
 
 import random
+import matplotlib.pyplot as plt
+from PIL import Image
+import numpy as np
 
 class Book:
     def __init__(self, genre, author, title):
@@ -140,9 +143,21 @@ class BookRecomender:
         
         print(next_genre, next_author, next_title)
         return BOOK_DICT[next_genre][next_author][next_title]
+
     
     def create_bookmark(self, book_recs):
-        print(book_recs)
+        
+        fig, axs = plt.subplots(1, 10) # figure out how to change 10 to var
+
+        images = []
+        for ax, book in zip(axs.flat, book_recs):
+            book.genre = "mystery"
+            book.author="me"
+            book.title="title"
+            images.append(ax.imshow(Image.open("images/"+book.genre+"/"+book.author+"/"+book.title+".jpeg")))
+            ax.set_axis_off()
+
+        plt.show()
 
 
 
