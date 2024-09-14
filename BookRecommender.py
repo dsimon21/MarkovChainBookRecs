@@ -89,7 +89,21 @@ class BookRecomender:
         self.generate_recs()
     
     def generate_recs(self):
-        print("generating ", self.num_recs)
+        
+        book_recs = []
+        current_book = self.start_book
+
+        for i in range(self.num_recs):
+            next_book = self.get_next_book(current_book)
+            while (next_book in book_recs):
+                next_book = self.get_next_book(current_book)
+            book_recs.append(next_book)
+            current_book = next_book
+        
+        print(book_recs)
+    
+    def get_next_book(self, current_book):
+        return Book("genre", "author", "title")
 
 
 def main():
