@@ -1,5 +1,7 @@
 """ Don't forget documentation! """
 
+import random
+
 class Book:
     def __init__(self, genre, author, title):
         self.genre = genre
@@ -8,6 +10,8 @@ class Book:
 
     def __repr__(self):
         return self.title
+    
+    # need eq method?
 
 BOOK_DICT = {
     "mystery" : {
@@ -90,20 +94,22 @@ class BookRecomender:
     
     def generate_recs(self):
         
-        book_recs = []
+        book_recs = [self.start_book.title] # to ensure start is not recommended
         current_book = self.start_book
 
         for i in range(self.num_recs):
             next_book = self.get_next_book(current_book)
-            while (next_book in book_recs):
+            while (next_book.title in book_recs):
                 next_book = self.get_next_book(current_book)
-            book_recs.append(next_book)
+            book_recs.append(next_book.title)
             current_book = next_book
+        
+        book_recs.remove(self.start_book.title)
         
         print(book_recs)
     
     def get_next_book(self, current_book):
-        return Book("genre", "author", "title")
+        return Book("genre", "author", str(random.random()))
 
 
 def main():
