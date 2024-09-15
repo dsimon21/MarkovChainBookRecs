@@ -3,7 +3,6 @@
 import random
 import matplotlib.pyplot as plt
 from PIL import Image
-import numpy as np
 
 class Book:
     def __init__(self, genre, author, title):
@@ -19,53 +18,53 @@ class Book:
 
 BOOK_DICT = {
     "mystery" : {
-        "ma1" : {
-            "ma1b1" : Book("mystery", "ma1", "ma1b1"),
-            "ma1b2" : Book("mystery", "ma1", "ma1b2"),
-            "ma1b3" : Book("mystery", "ma1", "ma1b3")},
-        "ma2" : {
-            "ma2b1" : Book("mystery", "ma2", "ma2b1"),
-            "ma2b2" : Book("mystery", "ma2", "ma2b2"),
-            "ma2b3" : Book("mystery", "ma2", "ma2b3")},
-        "ma3" : {
-            "ma3b1" : Book("mystery", "ma3", "ma3b1"),
-            "ma3b2" : Book("mystery", "ma3", "ma3b2"),
-            "ma3b3" : Book("mystery", "ma3", "ma3b3")},
+        "Karen McManus" : {
+            "One of Us is Lying" : Book("mystery", "Karen McManus", "One of Us is Lying"),
+            "Two Can Keep a Secret" : Book("mystery", "Karen McManus", "Two Can Keep a Secret"),
+            "You'll be the Death of Me" : Book("mystery", "Karen McManus", "You'll be the Death of Me")},
+        "Holly Jackson" : {
+            "A Good Girl's Guide to Murder" : Book("mystery", "Holly Jackson", "A Good Girl's Guide to Murder"),
+            "Five Survive" : Book("mystery", "Holly Jackson", "Five Survive"),
+            "The Reappearance of Rachel Price" : Book("mystery", "Holly Jackson", "The Reappearance of Rachel Price")},
+        "Jennifer Lynn Barnes" : {
+            "The Inheritance Games" : Book("mystery", "Jennifer Lynn Barnes", "The Inheritance Games"),
+            "The Naturals" : Book("mystery", "Jennifer Lynn Barnes", "The Naturals"),
+            "Raised by Wolves" : Book("mystery", "Jennifer Lynn Barnes", "Raised by Wolves")},
     },
-    "sci fi" : {
-        "sa1" : {
-            "sa1b1" : Book("sci fi", "sa1", "sa1b1"),
-            "sa1b2" : Book("sci fi", "sa1", "sa1b2"),
-            "sa1b3" : Book("sci fi", "sa1", "sa1b3")},
-        "sa2" : {
-            "sa2b1" : Book("sci fi", "sa2", "sa2b1"),
-            "sa2b2" : Book("sci fi", "sa2", "sa2b2"),
-            "sa2b3" : Book("sci fi", "sa2", "sa2b3")},
-        "sa3" : {
-            "sa3b1" : Book("sci fi", "sa3", "sa3b1"),
-            "sa3b2" : Book("sci fi", "sa3", "sa3b2"),
-            "sa3b3" : Book("sci fi", "sa3", "sa3b3")},
+    "fantasy" : {
+        "Sarah J Mass" : {
+            "Throne of Glass" : Book("fantasy", "Sarah J Mass", "Throne of Glass"),
+            "A Court of Thorns and Roses" : Book("fantasy", "Sarah J Mass", "A Court of Thorns and Roses"),
+            "Crescent City" : Book("fantasy", "Sarah J Mass", "Crescent City")},
+        "Rick Riordan" : {
+            "Percy Jackson and the Olympians" : Book("fantasy", "Rick Riordan", "Percy Jackson and the Olympians"),
+            "The Kane Chronicles" : Book("fantasy", "Rick Riordan", "The Kane Chronicles"),
+            "The Heroes of Olympus" : Book("fantasy", "Rick Riordan", "The Heroes of Olympus")},
+        "Veronica Roth" : {
+            "Divergent" : Book("fantasy", "Veronica Roth", "Divergent"),
+            "Chosen Ones" : Book("fantasy", "Veronica Roth", "Chosen Ones"),
+            "When Amoung Crows" : Book("fantasy", "Veronica Roth", "When Amoung Crows")},
     },
     "romance" : {
-        "ra1" : {
-            "ra1b1" : Book("romance", "ra1", "ra1b1"),
-            "ra1b2" : Book("romance", "ra1", "ra1b2"),
-            "ra1b3" : Book("romance", "ra1", "ra1b3")},
-        "ra2" : {
-            "ra2b1" : Book("romance", "ra2", "ra2b1"),
-            "ra2b2" : Book("romance", "ra2", "ra2b2"),
-            "ra2b3" : Book("romance", "ra2", "ra2b3")},
-        "ra3" : {
-            "ra3b1" : Book("romance", "ra3", "ra3b1"),
-            "ra3b2": Book("romance", "ra3", "ra3b2"),
-            "ra3b3" : Book("romance", "ra3", "ra3b3")},
+        "Sarah Dessen" : {
+            "Along for the Ride" : Book("romance", "Sarah Dessen", "Along for the Ride"),
+            "The Truth About Forever" : Book("romance", "Sarah Dessen", "The Truth About Forever"),
+            "Someone Like You" : Book("romance", "Sarah Dessen", "Someone Like You")},
+        "Emily Henry" : {
+            "Beach Read" : Book("romance", "Emily Henry", "Beach Read"),
+            "Happy Place" : Book("romance", "Emily Henry", "Happy Place"),
+            "Book Lovers" : Book("romance", "Emily Henry", "Book Lovers")},
+        "Taylor Jenkins Reed" : {
+            "Maybe in Another Life" : Book("romance", "Taylor Jenkins Reed", "Maybe in Another Life"),
+            "One True Loves": Book("romance", "Taylor Jenkins Reed", "One True Loves"),
+            "Forever Interrupted" : Book("romance", "Taylor Jenkins Reed", "Forever Interrupted")},
     }
 }
 
 GENRE_TRANSITION_MATRIX = {
-    "mystery" : {"mystery": .6, "romance": .15, "sci fi" : .25},
-    "romance" : {"mystery": .14, "romance": .76, "sci fi" : .1},
-    "sci fi" : {"mystery": .2, "romance": .12, "sci fi" : .68}
+    "mystery" : {"mystery": .6, "romance": .15, "fantasy" : .25},
+    "romance" : {"mystery": .14, "romance": .76, "fantasy" : .1},
+    "fantasy" : {"mystery": .2, "romance": .12, "fantasy" : .68}
 }
 
 class BookRecomender:
@@ -76,18 +75,18 @@ class BookRecomender:
             genre = input("Enter your favorite genre (options: "+str(self.genres)+"): ").lower()
         
         authors = list(BOOK_DICT[genre].keys())
-        author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ").lower()
+        author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
         while author not in authors:
-            author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ").lower()
+            author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
         
         titles = list(BOOK_DICT[genre][author].keys())
-        title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ").lower()
+        title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
         while title not in titles:
-            title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ").lower()
+            title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
         
-        self.num_recs = input("How many recommendations would you like? (options: 1-26): ")
-        while not (self.num_recs.isdigit() and int(self.num_recs) > 0 and int(self.num_recs) <= 26):
-            self.num_recs = input("How many recommendations would you like? (options: 1-20): ")
+        self.num_recs = input("How many recommendations would you like? (options: 2-26): ")
+        while not (self.num_recs.isdigit() and int(self.num_recs) >= 2 and int(self.num_recs) <= 26):
+            self.num_recs = input("How many recommendations would you like? (options: 2-26): ")
         self.num_recs = int(self.num_recs)
 
         self.start_book = BOOK_DICT[genre][author][title]
@@ -108,6 +107,7 @@ class BookRecomender:
         
         book_recs.remove(self.start_book)
         
+        print(book_recs)
         return book_recs
     
     def get_next_book(self, current_book):
@@ -147,14 +147,11 @@ class BookRecomender:
     
     def create_bookmark(self, book_recs):
         
-        fig, axs = plt.subplots(1, 10) # figure out how to change 10 to var
+        fig, axs = plt.subplots(1, len(book_recs)) # figure out how to change 10 to var
 
         images = []
         for ax, book in zip(axs.flat, book_recs):
-            book.genre = "mystery"
-            book.author="me"
-            book.title="title"
-            images.append(ax.imshow(Image.open("images/"+book.genre+"/"+book.author+"/"+book.title+".jpeg")))
+            images.append(ax.imshow(Image.open("images/"+book.genre+"/"+book.author+"/"+book.title+".webp")))
             ax.set_axis_off()
 
         plt.show()
