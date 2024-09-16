@@ -147,11 +147,11 @@ class BookRecomender:
     
     def create_bookmark(self, book_recs):
         
-        fig, axs = plt.subplots(1, len(book_recs)) # figure out how to change 10 to var
+        fig, axs = plt.subplots(1, len(book_recs))
 
         images = []
         for ax, book in zip(axs.flat, book_recs):
-            images.append(ax.imshow(Image.open("images/"+book.genre+"/"+book.author+"/"+book.title+".webp")))
+            images.append(ax.imshow(Image.open("assets/"+book.genre+"/"+book.author+"/"+book.title+".webp")))
             ax.set_axis_off()
 
         plt.show()
