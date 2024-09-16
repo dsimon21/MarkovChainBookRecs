@@ -1,10 +1,17 @@
-""" Don't forget documentation! """
+""" BookRecommender.py
+
+This file generated bookmarks containing book recomendations based on user
+input and using a Markov Chain.
+
+Danielle Simon
+"""
 
 import random
 import matplotlib.pyplot as plt
 from PIL import Image
 
 class Book:
+    """ This class represents a book object with string attributes genre, author, and title """
     def __init__(self, genre, author, title):
         self.genre = genre
         self.author = author
@@ -68,32 +75,15 @@ GENRE_TRANSITION_MATRIX = {
 }
 
 class BookRecomender:
-    def __init__(self):
-        self.genres = list(GENRE_TRANSITION_MATRIX.keys())
-        genre = input("Enter your favorite genre (options: "+str(self.genres)+"): ").lower()
-        while genre not in self.genres:
-            genre = input("Enter your favorite genre (options: "+str(self.genres)+"): ").lower()
-        
-        authors = list(BOOK_DICT[genre].keys())
-        author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
-        while author not in authors:
-            author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
-        
-        titles = list(BOOK_DICT[genre][author].keys())
-        title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
-        while title not in titles:
-            title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
-        
-        self.num_recs = input("How many recommendations would you like? (options: 2-26): ")
-        while not (self.num_recs.isdigit() and int(self.num_recs) >= 2 and int(self.num_recs) <= 26):
-            self.num_recs = input("How many recommendations would you like? (options: 2-26): ")
-        self.num_recs = int(self.num_recs)
+    """ This class contains the functionality to generate book recomendations
+    using a Markov chain and display them in a bookmark """
 
-        self.start_book = BOOK_DICT[genre][author][title]
-        print(self.start_book)
-        self.create_bookmark(self.generate_recs())
+    def __init__(self, start_book, num_recs):
+        self.num_recs = num_recs
+        self.start_book = start_book
     
     def generate_recs(self):
+        """ Generate a sequence of books. """
         
         book_recs = [self.start_book] # to ensure start is not recommended
         current_book = self.start_book
@@ -111,8 +101,12 @@ class BookRecomender:
         return book_recs
     
     def get_next_book(self, current_book):
+        """ Decides whic book to recommend next based on the current book.
 
-        next_genre = random.choices(self.genres, GENRE_TRANSITION_MATRIX[current_book.genre].values())[0]
+        Args: current_book (book) - the last book recommended 
+        """
+
+        next_genre = random.choices(list(GENRE_TRANSITION_MATRIX.keys()), GENRE_TRANSITION_MATRIX[current_book.genre].values())[0]
 
         author_mtx = dict()
         title_mtx = dict()
@@ -146,6 +140,10 @@ class BookRecomender:
 
     
     def create_bookmark(self, book_recs):
+        """ Displays the book recommendations in a bookmark format
+        
+        Args: book_recs (list of books): The books to display
+        """
         
         fig, axs = plt.subplots(1, len(book_recs))
 
@@ -159,7 +157,34 @@ class BookRecomender:
 
 
 def main():
-    book_recommender = BookRecomender()
+
+    # Gather user input for initial recomendation
+    genres = list(GENRE_TRANSITION_MATRIX.keys())
+    genre = input("Enter your favorite genre (options: "+str(genres)+"): ").lower()
+    while genre not in genres:
+        genre = input("Enter your favorite genre (options: "+str(genres)+"): ").lower()
+    
+    authors = list(BOOK_DICT[genre].keys())
+    author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
+    while author not in authors:
+        author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
+    
+    titles = list(BOOK_DICT[genre][author].keys())
+    title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
+    while title not in titles:
+        title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
+    
+    num_recs = input("How many recommendations would you like? (options: 2-26): ")
+    while not (num_recs.isdigit() and int(num_recs) >= 2 and int(num_recs) <= 26):
+        num_recs = input("How many recommendations would you like? (options: 2-26): ")
+    num_recs = int(num_recs)
+
+    start_book = BOOK_DICT[genre][author][title]
+
+    # Generate and display book recommendations
+    book_recommender = BookRecomender(start_book, num_recs)
+    book_recs = book_recommender.generate_recs()
+    book_recommender.create_bookmark(book_recs)
 
 if __name__ == "__main__":
     main()
