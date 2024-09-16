@@ -1,6 +1,6 @@
 """ BookRecommender.py
 
-This file generated bookmarks containing book recomendations based on user
+This file generates bookmarks containing book recomendations based on user
 input and using a Markov Chain.
 
 Danielle Simon
@@ -145,13 +145,14 @@ class BookRecomender:
         Args: book_recs (list of books): The books to display
         """
         
-        fig, axs = plt.subplots(1, len(book_recs))
+        fig, axs = plt.subplots(1, len(book_recs), figsize=((len(book_recs)), 1))
 
         images = []
         for ax, book in zip(axs.flat, book_recs):
             images.append(ax.imshow(Image.open("assets/"+book.genre+"/"+book.author+"/"+book.title+".webp")))
             ax.set_axis_off()
 
+        fig.patch.set_facecolor('xkcd:mint green')
         plt.show()
 
 

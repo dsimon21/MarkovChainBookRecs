@@ -29,5 +29,9 @@ recommendations. I often find myself disappointed when I finish a great book and
 ## Challenges
 
 ## Creativity
+Bookmark(ov) maker is creative because it has aspects that have value and novelty. Bookmark(ov) Maker
+produces book recommendations which are useful to readers. These recommendations take into account the genre and author of a book that the reader previously enjoyed, making the recommendations helpful and personalized. Bookmark(ov) Maker also produces bookmarks with novelty because it is highly
+unlikely that the exact bookmark has been created before.
 
 ## Sources
+All book cover images were taken from amazon.com.
