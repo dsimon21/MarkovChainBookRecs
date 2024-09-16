@@ -1,4 +1,15 @@
-# MarkovChainBookRecs
+# BookMark(ov) Maker
+Danielle Simon
 
-python learnings
-- __repr__
+
+# Description
+
+# How to Run
+
+# Personal Meaning
+
+# Challenges
+
+# Creativity
+
+# Sources
