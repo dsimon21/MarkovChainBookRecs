@@ -18,15 +18,18 @@ of requested book recommendations, Bookmark(ov) Maker displays the covers of the
 creating an excellent bookmark.
 
 ## How to Run
-To run the program enter `python3 BookRecommender.py`
-You will then be prompted to enter a genre, followed by an author, and then a title.
-Note: currenly the author and title prompts are case sensitive.
+To run the program enter `python3 BookRecommender.py` \
+You will then be prompted to enter a genre, followed by an author, and then a title. \
+Note: currenly the author and title prompts are case sensitive (since they are dictionary keys).
 
 ## Personal Meaning
 As an avid reader (when school is not in session), I am constantly asking friends and family for book
 recommendations. I often find myself disappointed when I finish a great book and eager to find a similar one. Thus, I would personally find a system that provides book recommendations based on book similarity incredibly helpful. Additionally, I prefer paper books to online books because I believe holding a paper book and turning pages is part of the experience. Therefore, I can never have too many bookmarks and am excited about every bookmark my system produces.
 
 ## Challenges
+I challenged myself to use a language that I am not yet comfortable with, work independently, and to add complexity. I had used Python before for simple projects years ago but was not very familiar with object-oriented Python or many Python libraries. However, I decided to challenge myself to use Python to take advantage of the mathplotlib library to display images in a neat plot. I learned how to implement the `__str__`  and `__repr__` methods which helped me test my program. I also learned that I can implement the `__eq__` method to then be able to use the `in` keyword to check if an equal object is in a list or set. However, since I was storing all the known books in a dictionary, I was able to use dictionary keys to always pass the exact object and avoid using extra space. Using Python was valuable because it taught me more about the specifics of the language but more importantly, it taught me about how to learn a language and how to find the methods and tools I needed. I also challenged myself to work independently. This was the first project I completed in several years where I wrote all of my code and made all of my design decisions without consulting a classmate or seeking approval from a mentor. Though I could have talked the project through with a classmate, I wanted to push myself outside of my comfort zone and gain the confidence that I could work through my confusions on my own. I also challenged myself by adding complexity in my Markov Chain implementation. I wanted to use dynamically created transition matrices to be able to generate logical recommendations for a variety of books without having to hardcode each one. This required me to think beyond the simple Markov Chains I had made in class and create tests, but allowed me to create a program I am proud of. I hope to continue to learn how to add complexity and master new tools that will allow me to do so. For example, I could make my project better by scraping the
+web to populate my dictionary of books and taking into account that some books can be classified as multiple genres and thus
+should also dynamically created genre transition matrices.
 
 ## Creativity
 Bookmark(ov) maker is creative because it has aspects that have value and novelty. Bookmark(ov) Maker
