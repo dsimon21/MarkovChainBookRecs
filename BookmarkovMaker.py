@@ -24,6 +24,7 @@ class Book:
     def __str__(self):
         return self.title
 
+
 BOOK_DICT = {
     "Mystery" : {
         "Karen Mcmanus" : {
@@ -75,9 +76,10 @@ GENRE_TRANSITION_MATRIX = {
     "Fantasy" : {"Mystery": .2, "Romance": .12, "Fantasy" : .68}
 }
 
+
 class BookRecomender:
     """ This class contains the functionality to generate book recomendations
-    using a Markov chain and display them in a bookmark """
+    using a Markov chain and displays them in a bookmark. """
 
     def __init__(self, start_book, num_recs):
         self.num_recs = num_recs
@@ -137,7 +139,6 @@ class BookRecomender:
         
         return BOOK_DICT[next_genre][next_author][next_title]
 
-    
     def create_bookmark(self, book_recs):
         """ Displays the book recommendations in a bookmark format.
         
@@ -162,9 +163,7 @@ class BookRecomender:
         plt.show()
 
 
-
 def main():
-
     # Gather user input for initial recomendation
     genres = list(GENRE_TRANSITION_MATRIX.keys())
     genre = input("Enter your favorite genre (options: "+str(genres)+"): ").title()
