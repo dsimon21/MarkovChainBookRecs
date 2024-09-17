@@ -19,7 +19,7 @@ returned. After selecting the amount of requested book recommendations, Bookmark
 the covers of the books in a line creating an excellent bookmark.
 
 ## How to Run
-To run the program enter `python3 BookRecommender.py` \
+To run the program enter `python3 BookmarkovMaker.py` \
 You will then be prompted to enter a genre, followed by an author, and then a title. \
 Note: currently the author and title prompts are case sensitive (since they are dictionary keys).
 

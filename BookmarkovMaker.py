@@ -97,7 +97,7 @@ class BookRecomender:
         
         book_recs.remove(self.start_book)
         
-        print(book_recs)
+        print("Recommendations:", book_recs)
         return book_recs
     
     def get_next_book(self, current_book):
