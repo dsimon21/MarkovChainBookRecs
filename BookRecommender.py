@@ -107,7 +107,7 @@ class BookRecomender:
         """
 
         next_genre = random.choices(list(GENRE_TRANSITION_MATRIX.keys()), GENRE_TRANSITION_MATRIX[current_book.genre].values())[0]
-
+        
         author_mtx = dict()
         title_mtx = dict()
         
@@ -118,11 +118,8 @@ class BookRecomender:
         else:
             for author in list(BOOK_DICT[next_genre].keys()):
                 author_mtx[author] = 1/(len(list(BOOK_DICT[next_genre])))
-        print("author mtx", author_mtx)
             
         next_author = random.choices(list(author_mtx.keys()), list(author_mtx.values()))[0]
-
-        print("books", list(BOOK_DICT[next_genre][next_author].keys()))
         
         if next_author == current_book.author:
             for book_title in list(BOOK_DICT[next_genre][next_author].keys()):
@@ -131,11 +128,9 @@ class BookRecomender:
         else:
             for book_title in list(BOOK_DICT[next_genre][next_author].keys()):
                 title_mtx[book_title] = 1/(len(list(BOOK_DICT[next_genre][next_author])))
-        print("title mtx", title_mtx)
 
         next_title = random.choices(list(title_mtx.keys()), list(title_mtx.values()))[0]
         
-        print(next_genre, next_author, next_title)
         return BOOK_DICT[next_genre][next_author][next_title]
 
     
@@ -145,14 +140,20 @@ class BookRecomender:
         Args: book_recs (list of books): The books to display
         """
         
-        fig, axs = plt.subplots(1, len(book_recs), figsize=((len(book_recs)), 1))
+        fig, axs = plt.subplots(1, len(book_recs), figsize=((len(book_recs)), 1.5))
 
         images = []
         for ax, book in zip(axs.flat, book_recs):
             images.append(ax.imshow(Image.open("assets/"+book.genre+"/"+book.author+"/"+book.title+".webp")))
             ax.set_axis_off()
 
-        fig.patch.set_facecolor('xkcd:mint green')
+        if self.start_book.genre == 'mystery':
+            fig.patch.set_facecolor('xkcd:blood red')
+        elif self.start_book.genre == 'romance':
+            fig.patch.set_facecolor('xkcd:baby pink')
+        else:
+            fig.patch.set_facecolor('xkcd:mint green')
+        
         plt.show()
 
 
@@ -185,6 +186,7 @@ def main():
     # Generate and display book recommendations
     book_recommender = BookRecomender(start_book, num_recs)
     book_recs = book_recommender.generate_recs()
+    print("Download your bookmark and happy reading!")
     book_recommender.create_bookmark(book_recs)
 
 if __name__ == "__main__":
