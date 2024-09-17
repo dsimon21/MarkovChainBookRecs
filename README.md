@@ -48,9 +48,9 @@ the methods and tools I needed. I also challenged myself to work independently. 
 completed in several years where I wrote all of my code and made all of my design decisions without consulting
 a classmate or seeking approval from a mentor. Though I could have talked the project through with a classmate,
 I wanted to push myself outside of my comfort zone and gain the confidence that I could work through my
-confusion on my own. I also challenged myself by adding complexity in my Markov Chain implementation. I wanted
+confusion on my own. I also challenged myself by adding complexity in my Markov chain implementation. I wanted
 to use dynamically created transition matrices to be able to generate logical recommendations for a variety of
-books without having to hardcode each one. This required me to think beyond the simple Markov Chains I had made
+books without having to hardcode each one. This required me to think beyond the simple Markov chains I had made
 in class, but allowed me to create a program I am proud of. I hope to continue to learn how to add complexity
 and master new tools that will allow me to do so. For example, I could make my project better by scraping the web
 to populate my dictionary of books and taking into account that some books can be classified as multiple genres
