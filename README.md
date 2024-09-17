@@ -10,18 +10,21 @@ dynamically creates the transition matrices for selecting the next author and ti
 the previous choice. First, BookMark(ov) Maker uses the transition matrix to select the genre of
 the next recommendation, based on the last recommendation. If the genre is the same, then the
 transition matrix for the author gives the last author a weight of .5 and divides the remaining .5
-evenly amoung the remaining authors of the genre. If the genre is different, all authors of the genre
+evenly among the remaining authors of the genre. If the genre is different, all authors of the genre
 are weighted equally. In the case where the author is the same, the last recommended title is given a
 weight of 0 and the rest are weighted evenly. Otherwise, all titles are weighted equally. However,
-Bookmark(ov) maker also ensures that the same book is not recommended multiple times on the same
-bookmark by repeatedly calling the function to get the next recommendation until an unseen book is
-returned. After selecting the amount of requested book recommendations, Bookmark(ov) Maker displays
-the covers of the books in a line creating an excellent bookmark.
+Bookmark(ov) Maker also ensures that the same book is not recommended multiple times on the same
+bookmark by repeatedly calling the function to get the next recommendation (without changing the
+last recommendation) until an unseen book is returned. After selecting the amount of requested book
+recommendations, Bookmark(ov) Maker displays the covers of the books in a line creating an excellent
+bookmark.
 
 ## How to Run
 To run the program enter `python3 BookmarkovMaker.py` \
 You will then be prompted to enter a genre, followed by an author, and then a title. \
-Note: currently the author and title prompts are case sensitive (since they are dictionary keys).
+Note: the inputs are not case sensitive, but you will be reprompted until an option is entered. \
+A bookmark will then appear in a new window and the rightmost button on the bottom of the window saves the file. \
+To exit the window, press 'q' or click the exit button in the top left. The program can then be rerun.
 
 ## Personal Meaning
 As an avid reader (when school is not in session), I am constantly asking friends and family for book
@@ -45,7 +48,7 @@ the methods and tools I needed. I also challenged myself to work independently. 
 completed in several years where I wrote all of my code and made all of my design decisions without consulting
 a classmate or seeking approval from a mentor. Though I could have talked the project through with a classmate,
 I wanted to push myself outside of my comfort zone and gain the confidence that I could work through my
-confusions on my own. I also challenged myself by adding complexity in my Markov Chain implementation. I wanted
+confusion on my own. I also challenged myself by adding complexity in my Markov Chain implementation. I wanted
 to use dynamically created transition matrices to be able to generate logical recommendations for a variety of
 books without having to hardcode each one. This required me to think beyond the simple Markov Chains I had made
 in class, but allowed me to create a program I am proud of. I hope to continue to learn how to add complexity
@@ -61,4 +64,4 @@ Maker also produces bookmarks with novelty because it is highly unlikely that th
 before.
 
 ## Sources
-All book cover images were taken from amazon.com.
+All book cover images are from Amazon.com.
