@@ -1,7 +1,8 @@
 """ BookRecommender.py
 
-This file generates bookmarks containing book recomendations based on user
-input and using a Markov Chain.
+This file contains the Book class and BookRecommender classes which provide
+functionality to create bookmarks containing book recomendations based on user
+input using a Markov Chain.
 
 Danielle Simon
 """
@@ -24,54 +25,54 @@ class Book:
         return self.title
 
 BOOK_DICT = {
-    "mystery" : {
-        "Karen McManus" : {
-            "One of Us is Lying" : Book("mystery", "Karen McManus", "One of Us is Lying"),
-            "Two Can Keep a Secret" : Book("mystery", "Karen McManus", "Two Can Keep a Secret"),
-            "You'll be the Death of Me" : Book("mystery", "Karen McManus", "You'll be the Death of Me")},
+    "Mystery" : {
+        "Karen Mcmanus" : {
+            "One Of Us Is Lying" : Book("Mystery", "Karen Mcmanus", "One Of Us Is Lying"),
+            "Two Can Keep A Secret" : Book("Mystery", "Karen Mcmanus", "Two Can Keep A Secret"),
+            "You'll Be The Death Of Me" : Book("Mystery", "Karen Mcmanus", "You'll Be The Death Of Me")},
         "Holly Jackson" : {
-            "A Good Girl's Guide to Murder" : Book("mystery", "Holly Jackson", "A Good Girl's Guide to Murder"),
-            "Five Survive" : Book("mystery", "Holly Jackson", "Five Survive"),
-            "The Reappearance of Rachel Price" : Book("mystery", "Holly Jackson", "The Reappearance of Rachel Price")},
+            "A Good Girl's Guide To Murder" : Book("Mystery", "Holly Jackson", "A Good Girl's Guide To Murder"),
+            "Five Survive" : Book("Mystery", "Holly Jackson", "Five Survive"),
+            "The Reappearance Of Rachel Price" : Book("Mystery", "Holly Jackson", "The Reappearance Of Rachel Price")},
         "Jennifer Lynn Barnes" : {
-            "The Inheritance Games" : Book("mystery", "Jennifer Lynn Barnes", "The Inheritance Games"),
-            "The Naturals" : Book("mystery", "Jennifer Lynn Barnes", "The Naturals"),
-            "Raised by Wolves" : Book("mystery", "Jennifer Lynn Barnes", "Raised by Wolves")},
+            "The Inheritance Games" : Book("Mystery", "Jennifer Lynn Barnes", "The Inheritance Games"),
+            "The Naturals" : Book("Mystery", "Jennifer Lynn Barnes", "The Naturals"),
+            "Raised By Wolves" : Book("Mystery", "Jennifer Lynn Barnes", "Raised By Wolves")},
     },
-    "fantasy" : {
+    "Fantasy" : {
         "Sarah J Mass" : {
-            "Throne of Glass" : Book("fantasy", "Sarah J Mass", "Throne of Glass"),
-            "A Court of Thorns and Roses" : Book("fantasy", "Sarah J Mass", "A Court of Thorns and Roses"),
-            "Crescent City" : Book("fantasy", "Sarah J Mass", "Crescent City")},
+            "Throne Of Glass" : Book("Fantasy", "Sarah J Mass", "Throne Of Glass"),
+            "A Court Of Thorns And Roses" : Book("Fantasy", "Sarah J Mass", "A Court Of Thorns And Roses"),
+            "Crescent City" : Book("Fantasy", "Sarah J Mass", "Crescent City")},
         "Rick Riordan" : {
-            "Percy Jackson and the Olympians" : Book("fantasy", "Rick Riordan", "Percy Jackson and the Olympians"),
-            "The Kane Chronicles" : Book("fantasy", "Rick Riordan", "The Kane Chronicles"),
-            "The Heroes of Olympus" : Book("fantasy", "Rick Riordan", "The Heroes of Olympus")},
+            "Percy Jackson And The Olympians" : Book("Fantasy", "Rick Riordan", "Percy Jackson And The Olympians"),
+            "The Kane Chronicles" : Book("Fantasy", "Rick Riordan", "The Kane Chronicles"),
+            "The Heroes Of Olympus" : Book("Fantasy", "Rick Riordan", "The Heroes Of Olympus")},
         "Veronica Roth" : {
-            "Divergent" : Book("fantasy", "Veronica Roth", "Divergent"),
-            "Chosen Ones" : Book("fantasy", "Veronica Roth", "Chosen Ones"),
-            "When Amoung Crows" : Book("fantasy", "Veronica Roth", "When Amoung Crows")},
+            "Divergent" : Book("Fantasy", "Veronica Roth", "Divergent"),
+            "Chosen Ones" : Book("Fantasy", "Veronica Roth", "Chosen Ones"),
+            "When Among Crows" : Book("Fantasy", "Veronica Roth", "When Among Crows")},
     },
-    "romance" : {
+    "Romance" : {
         "Sarah Dessen" : {
-            "Along for the Ride" : Book("romance", "Sarah Dessen", "Along for the Ride"),
-            "The Truth About Forever" : Book("romance", "Sarah Dessen", "The Truth About Forever"),
-            "Someone Like You" : Book("romance", "Sarah Dessen", "Someone Like You")},
+            "Along For The Ride" : Book("Romance", "Sarah Dessen", "Along For The Ride"),
+            "The Truth About Forever" : Book("Romance", "Sarah Dessen", "The Truth About Forever"),
+            "Someone Like You" : Book("Romance", "Sarah Dessen", "Someone Like You")},
         "Emily Henry" : {
-            "Beach Read" : Book("romance", "Emily Henry", "Beach Read"),
-            "Happy Place" : Book("romance", "Emily Henry", "Happy Place"),
-            "Book Lovers" : Book("romance", "Emily Henry", "Book Lovers")},
+            "Beach Read" : Book("Romance", "Emily Henry", "Beach Read"),
+            "Happy Place" : Book("Romance", "Emily Henry", "Happy Place"),
+            "Book Lovers" : Book("Romance", "Emily Henry", "Book Lovers")},
         "Taylor Jenkins Reed" : {
-            "Maybe in Another Life" : Book("romance", "Taylor Jenkins Reed", "Maybe in Another Life"),
-            "One True Loves": Book("romance", "Taylor Jenkins Reed", "One True Loves"),
-            "Forever Interrupted" : Book("romance", "Taylor Jenkins Reed", "Forever Interrupted")},
+            "Maybe In Another Life" : Book("Romance", "Taylor Jenkins Reed", "Maybe In Another Life"),
+            "One True Loves": Book("Romance", "Taylor Jenkins Reed", "One True Loves"),
+            "Forever Interrupted" : Book("Romance", "Taylor Jenkins Reed", "Forever Interrupted")},
     }
 }
 
 GENRE_TRANSITION_MATRIX = {
-    "mystery" : {"mystery": .6, "romance": .15, "fantasy" : .25},
-    "romance" : {"mystery": .14, "romance": .76, "fantasy" : .1},
-    "fantasy" : {"mystery": .2, "romance": .12, "fantasy" : .68}
+    "Mystery" : {"Mystery": .6, "Romance": .15, "Fantasy" : .25},
+    "Romance" : {"Mystery": .14, "Romance": .76, "Fantasy" : .1},
+    "Fantasy" : {"Mystery": .2, "Romance": .12, "Fantasy" : .68}
 }
 
 class BookRecomender:
@@ -85,7 +86,8 @@ class BookRecomender:
     def generate_recs(self):
         """ Generate a sequence of books. """
         
-        book_recs = [self.start_book] # to ensure start is not recommended
+        # Ensure starting book is not recommended
+        book_recs = [self.start_book]
         current_book = self.start_book
 
         for i in range(self.num_recs):
@@ -95,13 +97,13 @@ class BookRecomender:
             book_recs.append(next_book)
             current_book = next_book
         
+        # Ensure starting book is not recommended
         book_recs.remove(self.start_book)
         
-        print("Recommendations:", book_recs)
         return book_recs
     
     def get_next_book(self, current_book):
-        """ Decides whic book to recommend next based on the current book.
+        """ Decides which book to recommend next based on the current book.
 
         Args: current_book (book) - the last book recommended 
         """
@@ -111,6 +113,7 @@ class BookRecomender:
         author_mtx = dict()
         title_mtx = dict()
         
+        # Create author transition matrix
         if next_genre == current_book.genre:
             for author in list(BOOK_DICT[next_genre].keys()):
                 author_mtx[author] = .5/(len(list(BOOK_DICT[next_genre]))-1)
@@ -121,6 +124,7 @@ class BookRecomender:
             
         next_author = random.choices(list(author_mtx.keys()), list(author_mtx.values()))[0]
         
+        # Create title transition matrix
         if next_author == current_book.author:
             for book_title in list(BOOK_DICT[next_genre][next_author].keys()):
                 title_mtx[book_title] = 1/(len(list(BOOK_DICT[next_genre][next_author]))-1)
@@ -135,7 +139,7 @@ class BookRecomender:
 
     
     def create_bookmark(self, book_recs):
-        """ Displays the book recommendations in a bookmark format
+        """ Displays the book recommendations in a bookmark format.
         
         Args: book_recs (list of books): The books to display
         """
@@ -147,9 +151,10 @@ class BookRecomender:
             images.append(ax.imshow(Image.open("assets/"+book.genre+"/"+book.author+"/"+book.title+".webp")))
             ax.set_axis_off()
 
-        if self.start_book.genre == 'mystery':
+        # Set background color based on the starting genre
+        if self.start_book.genre == 'Mystery':
             fig.patch.set_facecolor('xkcd:blood red')
-        elif self.start_book.genre == 'romance':
+        elif self.start_book.genre == 'Romance':
             fig.patch.set_facecolor('xkcd:baby pink')
         else:
             fig.patch.set_facecolor('xkcd:mint green')
@@ -162,23 +167,23 @@ def main():
 
     # Gather user input for initial recomendation
     genres = list(GENRE_TRANSITION_MATRIX.keys())
-    genre = input("Enter your favorite genre (options: "+str(genres)+"): ").lower()
+    genre = input("Enter your favorite genre (options: "+str(genres)+"): ").title()
     while genre not in genres:
-        genre = input("Enter your favorite genre (options: "+str(genres)+"): ").lower()
+        genre = input("Enter your favorite genre (options: "+str(genres)+"): ").title()
     
     authors = list(BOOK_DICT[genre].keys())
-    author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
+    author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ").title()
     while author not in authors:
-        author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ")
+        author = input("Enter your favorite "+genre+" author (options: "+str(authors)+"): ").title()
     
     titles = list(BOOK_DICT[genre][author].keys())
-    title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
+    title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ").title()
     while title not in titles:
-        title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ")
+        title = input("Enter your favorite "+author+" book (options: "+str(titles)+"): ").title()
     
-    num_recs = input("How many recommendations would you like? (options: 2-26): ")
+    num_recs = input("How many recommendations would you like? (options: 2-26): ").title()
     while not (num_recs.isdigit() and int(num_recs) >= 2 and int(num_recs) <= 26):
-        num_recs = input("How many recommendations would you like? (options: 2-26): ")
+        num_recs = input("How many recommendations would you like? (options: 2-26): ").title()
     num_recs = int(num_recs)
 
     start_book = BOOK_DICT[genre][author][title]
@@ -186,6 +191,7 @@ def main():
     # Generate and display book recommendations
     book_recommender = BookRecomender(start_book, num_recs)
     book_recs = book_recommender.generate_recs()
+    print("Recommendations:", book_recs)
     print("Download your bookmark and happy reading!")
     book_recommender.create_bookmark(book_recs)
 
