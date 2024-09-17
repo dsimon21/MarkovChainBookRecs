@@ -29,9 +29,9 @@ BOOK_DICT = {
         "Karen Mcmanus" : {
             "One Of Us Is Lying" : Book("Mystery", "Karen Mcmanus", "One Of Us Is Lying"),
             "Two Can Keep A Secret" : Book("Mystery", "Karen Mcmanus", "Two Can Keep A Secret"),
-            "You'll Be The Death Of Me" : Book("Mystery", "Karen Mcmanus", "You'll Be The Death Of Me")},
+            "You'Ll Be The Death Of Me" : Book("Mystery", "Karen Mcmanus", "You'Ll Be The Death Of Me")},
         "Holly Jackson" : {
-            "A Good Girl's Guide To Murder" : Book("Mystery", "Holly Jackson", "A Good Girl's Guide To Murder"),
+            "A Good Girl'S Guide To Murder" : Book("Mystery", "Holly Jackson", "A Good Girl'S Guide To Murder"),
             "Five Survive" : Book("Mystery", "Holly Jackson", "Five Survive"),
             "The Reappearance Of Rachel Price" : Book("Mystery", "Holly Jackson", "The Reappearance Of Rachel Price")},
         "Jennifer Lynn Barnes" : {
